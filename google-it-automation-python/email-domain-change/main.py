@@ -19,8 +19,8 @@ def replace_domain(address, old_domain, new_domain):
 def main():
         """Processes the list of emails, replacing any instances of the old domain with the new domain."""
         old_domain, new_domain = "abc.edu", "xyz.edu"
-        csv_file_location = "/home/student/data/user_emails.csv"
-        report_file = "/home/student/data" + "/updated_user_emails.csv"
+        csv_file_location = "/data/user_emails.csv"
+        report_file = "/data" + "/updated_user_emails.csv"
         
         user_email_list = []
         old_domain_email_list = []
@@ -45,7 +45,7 @@ def main():
                                         user[email_index] = " " + new_domain
                 file.close()
 
-        with open(report_file, "w") as output_file:
+        with open(report_file, "w+") as output_file:
                 writer = csv.writer(output_file)
                 writer.writerows(user_data_list)
                 output_file.close()
