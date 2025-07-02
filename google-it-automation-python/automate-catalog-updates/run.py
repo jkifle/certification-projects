@@ -5,21 +5,22 @@ import requests
 import re
 
 input_path = "supplier-data/descriptions/"
-url = "http://34.132.45.55/fruits/"
+url = "http://34.53.44.114/fruits/"
 
-def createDict(file):
+def createDict(file, image_name):
   feedback = {}
   feedback["name"] = file.readline()
-  weight = re.findall(r'\d+',file.readline())
+  feedback["weight"] = re.findall(r'\d+',file.readline())
   feedback["description"] = file.readline()
-  #feedback["image_name"] = file.readline()
-  
+  feedback["image_name"] = image_name
   return feedback
 
 if __name__ == "__main__":
   for file in os.listdir(input_path):
-    try:
+    try: 
       with open(os.path.join(input_path, file), "r") as f:
-        requests.post(url, data=createDict(f))
-    except Exception as e:
+        imageid = os.path.splitext(os.path.basename(file))[0]
+        image_name = f"{imageid}.jpeg"
+        requests.post(url, data=createDict(f, image_name))
+    except Exception as e: 
       print(e)
